@@ -15,13 +15,19 @@ const Guarantee = ({ onOpenModal }: GuaranteeProps) => {
           </div>
           
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-            Garantia de Resultado
+            As lojas que mais crescem hoje não esperam o cliente entrar
           </h2>
           
+          <p className="text-lg text-muted-foreground mb-4 max-w-2xl mx-auto leading-relaxed">
+            Elas criam o próprio fluxo de vendas todos os dias.
+          </p>
+
+          <p className="text-xl font-semibold text-foreground mb-8 max-w-2xl mx-auto">
+            Agora é sua vez de fazer o mesmo.
+          </p>
+
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-            Se ao final de 30 dias não atingirmos a meta mínima combinada de reuniões qualificadas, 
-            estendo a consultoria por mais <span className="font-bold text-foreground">30 dias sem custo</span> — 
-            desde que o plano tenha sido executado corretamente.
+            Participe da Sessão Estratégica Gratuita e descubra como implementar o modelo que tem transformado o setor moveleiro no Brasil.
           </p>
 
           <Button 
@@ -29,8 +35,12 @@ const Guarantee = ({ onOpenModal }: GuaranteeProps) => {
             size="lg"
             className="bg-primary hover:bg-primary-hover text-primary-foreground font-bold text-lg px-8 py-6 h-auto shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
           >
-            Quero essa garantia →
+            Quero agendar minha Sessão Estratégica →
           </Button>
+
+          <p className="text-sm text-muted-foreground mt-4">
+            Vagas limitadas semanalmente
+          </p>
         </div>
       </div>
     </section>

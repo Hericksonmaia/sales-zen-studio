@@ -1,83 +1,57 @@
 import { Button } from "@/components/ui/button";
-import { BookOpen, Palette, Globe, MessageSquare, BarChart3, Video } from "lucide-react";
+import { CheckCircle2, X } from "lucide-react";
 
 interface BenefitsProps {
   onOpenModal: () => void;
 }
 
 const Benefits = ({ onOpenModal }: BenefitsProps) => {
-  const benefits = [
-    {
-      icon: BookOpen,
-      title: "Roteiro de implantação",
-      description: "30 dias com metas semanais"
-    },
-    {
-      icon: Palette,
-      title: "Templates de criativos",
-      description: "Vídeos, estáticos e copies prontos"
-    },
-    {
-      icon: Globe,
-      title: "Landing de agendamento",
-      description: "Páginas otimizadas + DMs"
-    },
-    {
-      icon: MessageSquare,
-      title: "Scripts comerciais",
-      description: "Pré-qualificação, agendamento e follow-up"
-    },
-    {
-      icon: BarChart3,
-      title: "Planilha/CRM de leads",
-      description: "Rotina diária de 15–30 min"
-    },
-    {
-      icon: Video,
-      title: "1 call por semana",
-      description: "Ajustes e leitura de métricas"
-    }
+  const forWho = [
+    "Aumentar a demanda qualificada e gerar vendas todos os dias",
+    "Parar de depender apenas do fluxo físico da loja",
+    "Estruturar um processo digital que traga resultados previsíveis",
+    "Entender o que realmente funciona no digital — e aplicar de forma prática"
   ];
 
   return (
     <section className="py-20 px-4 bg-secondary">
-      <div className="container mx-auto max-w-5xl">
-        <div className="text-center mb-16">
+      <div className="container mx-auto max-w-4xl">
+        <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            O Que Você Recebe
+            Para Quem é Esta Oferta
           </h2>
           <p className="text-lg text-muted-foreground">
-            Tudo o que você precisa para começar a gerar reuniões qualificadas
+            Esta sessão é para donos de loja de móveis com operação ativa que desejam:
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {benefits.map((benefit, index) => (
-            <div 
-              key={index}
-              className="bg-card p-6 rounded-xl border border-border hover:border-primary transition-all duration-300 hover:shadow-md animate-fade-in"
-              style={{ animationDelay: `${index * 0.05}s` }}
-            >
-              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                <benefit.icon className="w-6 h-6 text-primary" />
+        <div className="bg-card rounded-2xl p-8 md:p-12 shadow-lg border border-border mb-8">
+          <div className="space-y-4 mb-8">
+            {forWho.map((item, index) => (
+              <div key={index} className="flex items-start gap-3">
+                <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                <p className="text-foreground text-lg">{item}</p>
               </div>
-              <h3 className="text-lg font-bold text-foreground mb-2">
-                {benefit.title}
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                {benefit.description}
+            ))}
+          </div>
+
+          <div className="pt-6 border-t border-border">
+            <div className="flex items-start gap-3 mb-4">
+              <X className="w-6 h-6 text-destructive flex-shrink-0 mt-1" />
+              <p className="text-muted-foreground text-lg">
+                <span className="font-bold text-foreground">Não é para</span> curiosos, iniciantes ou quem busca viral milagroso. É para empresários que querem escala e clareza de crescimento.
               </p>
             </div>
-          ))}
+          </div>
         </div>
 
         <div className="text-center">
           <Button 
             onClick={onOpenModal}
             size="lg"
-            className="bg-primary hover:bg-primary-hover text-primary-foreground font-bold text-lg px-8 py-6 h-auto shadow-lg hover:shadow-xl transition-all duration-300"
+            className="bg-primary hover:bg-primary-hover text-primary-foreground font-bold text-lg px-8 py-6 h-auto shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
           >
-            Ver se minha loja é elegível →
+            Quero participar da Sessão Estratégica →
           </Button>
         </div>
       </div>

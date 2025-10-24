@@ -3,19 +3,19 @@ import { CheckCircle2 } from "lucide-react";
 const Process = () => {
   const steps = [
     {
-      period: "Dia 0–7",
-      title: "Preparação Estratégica",
-      activities: "Diagnóstico, copy, criativos, páginas e treinamento do script"
+      number: "1",
+      title: "Diagnóstico Rápido",
+      description: "Você preenche um formulário com informações sobre sua loja, faturamento e desafios atuais"
     },
     {
-      period: "Dia 8–21",
-      title: "Captação Ativa",
-      activities: "Captação + aquecimento; DMs e ligações diárias"
+      number: "2",
+      title: "Contato Direto",
+      description: "Nossa equipe entra em contato para agendar sua Sessão Estratégica 100% online e gratuita"
     },
     {
-      period: "Dia 22–30",
-      title: "Conversão & Otimização",
-      activities: "Foco em agendamentos, show-up e reuniões; otimizações"
+      number: "3",
+      title: "Análise e Direcionamento",
+      description: "Durante a sessão, vamos identificar os gargalos, os erros que te impedem de crescer e apontar o plano de ação que pode multiplicar seus resultados no digital"
     }
   ];
 
@@ -24,10 +24,10 @@ const Process = () => {
       <div className="container mx-auto max-w-5xl">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Como Funciona
+            Como Funciona Sua Sessão Estratégica
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Processo passo a passo para os primeiros 30 dias
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            Em apenas três etapas simples, você entenderá com clareza o que está travando o crescimento da sua loja e como destravar isso imediatamente
           </p>
         </div>
 
@@ -46,16 +46,11 @@ const Process = () => {
                 </div>
                 
                 <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-sm font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">
-                      {step.period}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-bold text-foreground mb-2">
+                  <h3 className="text-2xl font-bold text-foreground mb-3">
                     {step.title}
                   </h3>
-                  <p className="text-muted-foreground">
-                    {step.activities}
+                  <p className="text-muted-foreground leading-relaxed">
+                    {step.description}
                   </p>
                 </div>
 

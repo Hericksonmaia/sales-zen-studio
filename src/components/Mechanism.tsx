@@ -4,18 +4,18 @@ const Mechanism = () => {
   const features = [
     {
       icon: Target,
-      title: "Posicionamento",
-      description: "Proposta de valor clara + oferta de diagnóstico e projeto"
+      title: "Posicionamento Estratégico",
+      description: "Transformamos sua marca em referência na região, destacando diferenciais que vendem"
     },
     {
       icon: Megaphone,
-      title: "Tráfego Pago Local",
-      description: "Criativos diretos (Feed, Reels, Stories, Google/Meta)"
+      title: "Tráfego Pago Direcionado",
+      description: "Campanhas otimizadas que trazem clientes prontos para comprar, todos os dias"
     },
     {
       icon: PhoneCall,
-      title: "Rotina Comercial",
-      description: "Scripts de DM/WhatsApp e ligações curtas para agendar e confirmar presença"
+      title: "Rotina Comercial Digital",
+      description: "Atendimento simples e eficaz via WhatsApp/DM, garantindo follow-up e fechamento"
     }
   ];
 
@@ -26,8 +26,8 @@ const Mechanism = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Por Que Funciona
           </h2>
-          <p className="text-lg text-muted-foreground">
-            O Mecanismo AQC que transforma visitas em reuniões qualificadas
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            O sistema foi criado a partir da experiência com dezenas de lojas de móveis de todo o Brasil e é baseado em três pilares fundamentais que criam previsibilidade real — e não apenas picos de venda
           </p>
         </div>
 
