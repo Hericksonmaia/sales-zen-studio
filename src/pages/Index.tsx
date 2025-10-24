@@ -6,9 +6,16 @@ import Benefits from "@/components/Benefits";
 import Process from "@/components/Process";
 import Guarantee from "@/components/Guarantee";
 import LeadCaptureModal from "@/components/LeadCaptureModal";
+import { initFacebookPixel, trackPageView } from "@/lib/facebook-pixel";
 
 const Index = () => {
   const [modalOpen, setModalOpen] = useState(false);
+
+  // Initialize Facebook Pixel and track PageView
+  useEffect(() => {
+    initFacebookPixel();
+    trackPageView();
+  }, []);
 
   // Exit-intent detection (desktop only)
   useEffect(() => {

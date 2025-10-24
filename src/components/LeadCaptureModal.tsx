@@ -8,6 +8,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { CheckCircle2 } from "lucide-react";
+import { trackLead } from "@/lib/facebook-pixel";
 
 interface LeadCaptureModalProps {
   open: boolean;
@@ -52,14 +53,21 @@ const LeadCaptureModal = ({ open, onOpenChange }: LeadCaptureModalProps) => {
     setStep(2);
   };
 
-  const handleStep2Submit = (e: React.FormEvent) => {
+  const handleStep2Submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.revenue.length === 0 || !formData.role) {
       toast.error("Por favor, preencha todos os campos");
       return;
     }
     
-    // Track event (you can integrate with analytics here)
+    // Track Facebook conversion
+    await trackLead({
+      name: formData.name,
+      instagram: formData.instagram,
+      revenue: formData.revenue,
+      role: formData.role,
+    });
+    
     console.log("Lead submitted:", formData);
     
     toast.success("Cadastro realizado com sucesso!");
