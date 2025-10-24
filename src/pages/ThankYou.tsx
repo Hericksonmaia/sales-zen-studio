@@ -1,11 +1,53 @@
 import { Calendar, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 
 const ThankYou = () => {
   const whatsappMessage = encodeURIComponent(
     "Olá! Acabei de preencher o formulário e gostaria de agendar meu diagnóstico gratuito."
   );
   const whatsappLink = `https://wa.me/5511999999999?text=${whatsappMessage}`;
+
+  useEffect(() => {
+    // Load Cal.com embed script
+    (function (C: any, A: string, L: string) { 
+      let p = function (a: any, ar: any) { a.q.push(ar); }; 
+      let d = C.document; 
+      C.Cal = C.Cal || function () { 
+        let cal = C.Cal; 
+        let ar = arguments; 
+        if (!cal.loaded) { 
+          cal.ns = {}; 
+          cal.q = cal.q || []; 
+          d.head.appendChild(d.createElement("script")).src = A; 
+          cal.loaded = true; 
+        } 
+        if (ar[0] === L) { 
+          const api = function () { p(api, arguments); }; 
+          const namespace = ar[1]; 
+          api.q = api.q || []; 
+          if(typeof namespace === "string"){
+            cal.ns[namespace] = cal.ns[namespace] || api;
+            p(cal.ns[namespace], ar);
+            p(cal, ["initNamespace", namespace]);
+          } else p(cal, ar); 
+          return;
+        } 
+        p(cal, ar); 
+      }; 
+    })(window, "https://calcom.workidigital.tech/embed/embed.js", "init");
+    
+    const Cal = (window as any).Cal;
+    Cal("init", "reuniao-de-marketing-funil-02", {origin:"https://calcom.workidigital.tech"});
+    
+    Cal.ns["reuniao-de-marketing-funil-02"]("inline", {
+      elementOrSelector:"#my-cal-inline",
+      config: {"layout":"month_view"},
+      calLink: "workidigitaloficial-gmail.com/reuniao-de-marketing-funil-02",
+    });
+    
+    Cal.ns["reuniao-de-marketing-funil-02"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-secondary to-background flex items-center justify-center px-4 py-12">
@@ -25,17 +67,12 @@ const ThankYou = () => {
             Seu cadastro foi realizado com sucesso! Agora vamos agendar sua reunião estratégica.
           </p>
 
-          {/* Calendar Embed Placeholder */}
-          <div className="bg-secondary rounded-xl p-8 mb-8 min-h-[400px] flex items-center justify-center border-2 border-dashed border-border">
-            <div className="text-center">
-              <Calendar className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-              <p className="text-muted-foreground mb-4">
-                Calendário Calendly/Google Calendar
-              </p>
-              <p className="text-sm text-muted-foreground">
-                Integre aqui seu link do Calendly ou Google Calendar
-              </p>
-            </div>
+          {/* Cal.com Calendar Embed */}
+          <div 
+            className="bg-secondary rounded-xl mb-8 overflow-hidden border border-border"
+            style={{ height: "600px" }}
+          >
+            <div style={{ width: "100%", height: "100%", overflow: "scroll" }} id="my-cal-inline"></div>
           </div>
 
           {/* WhatsApp CTA */}
