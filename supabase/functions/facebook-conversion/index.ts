@@ -12,6 +12,8 @@ interface ConversionEvent {
     client_user_agent?: string;
     fbp?: string;
     fbc?: string;
+    external_id?: string;
+    em?: string; // Hashed email
   };
   customData?: Record<string, any>;
 }
@@ -32,23 +34,55 @@ serve(async (req) => {
 
     const { eventName, eventSourceUrl, userData, customData }: ConversionEvent = await req.json();
 
-    // Extract client IP from headers
-    const clientIp = req.headers.get('x-forwarded-for')?.split(',')[0].trim() || 
-                     req.headers.get('x-real-ip') || 
-                     'unknown';
+    // Extract client IP from headers (multiple sources for better capture)
+    const getClientIp = (): string | undefined => {
+      // Try different headers in order of reliability
+      const forwardedFor = req.headers.get('x-forwarded-for');
+      if (forwardedFor) {
+        const ip = forwardedFor.split(',')[0].trim();
+        if (ip && isValidIp(ip)) return ip;
+      }
+
+      const realIp = req.headers.get('x-real-ip');
+      if (realIp && isValidIp(realIp)) return realIp;
+
+      const cfConnecting = req.headers.get('cf-connecting-ip');
+      if (cfConnecting && isValidIp(cfConnecting)) return cfConnecting;
+
+      return undefined;
+    };
+
+    // Validate IP format (basic IPv4/IPv6 check)
+    const isValidIp = (ip: string): boolean => {
+      const ipv4Regex = /^(\d{1,3}\.){3}\d{1,3}$/;
+      const ipv6Regex = /^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$/;
+      return ipv4Regex.test(ip) || ipv6Regex.test(ip);
+    };
+
+    const clientIp = getClientIp();
 
     console.log('Processing Facebook conversion:', { 
       eventName, 
       eventSourceUrl,
       clientIp,
-      userData 
+      hasEmail: !!userData.em,
+      hasExternalId: !!userData.external_id,
+      hasFbp: !!userData.fbp,
+      hasFbc: !!userData.fbc,
     });
 
-    // Prepare user data with client IP
+    // Prepare user data with all identification parameters
     const enrichedUserData = {
       ...userData,
-      client_ip_address: clientIp !== 'unknown' ? clientIp : undefined,
+      client_ip_address: clientIp,
     };
+
+    // Remove undefined fields to keep payload clean
+    Object.keys(enrichedUserData).forEach(key => {
+      if (enrichedUserData[key as keyof typeof enrichedUserData] === undefined) {
+        delete enrichedUserData[key as keyof typeof enrichedUserData];
+      }
+    });
 
     // Prepare the event data
     const eventData = {

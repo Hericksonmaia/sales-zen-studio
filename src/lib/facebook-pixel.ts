@@ -2,6 +2,28 @@ import { supabase } from "@/integrations/supabase/client";
 
 const PIXEL_ID = '990028642721674';
 
+// SHA256 hash function
+const sha256 = async (text: string): Promise<string> => {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(text.toLowerCase().trim());
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+};
+
+// Get or create External ID
+const getExternalId = (): string => {
+  const storageKey = 'fb_external_id';
+  let externalId = localStorage.getItem(storageKey);
+  
+  if (!externalId) {
+    externalId = `ext_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
+    localStorage.setItem(storageKey, externalId);
+  }
+  
+  return externalId;
+};
+
 // Get Facebook Click ID and Browser ID from cookies
 const getFacebookParams = () => {
   const fbp = document.cookie
@@ -87,6 +109,7 @@ export const trackPageView = async () => {
   // Server-side conversion API
   try {
     const { fbp, fbc } = getFacebookParams();
+    const externalId = getExternalId();
 
     await supabase.functions.invoke('facebook-conversion', {
       body: {
@@ -96,6 +119,7 @@ export const trackPageView = async () => {
           client_user_agent: navigator.userAgent,
           fbp,
           fbc,
+          external_id: externalId,
         },
         customData: enrichedData,
       },
@@ -112,22 +136,37 @@ export const trackLead = async (leadData?: Record<string, any>) => {
   // Client-side pixel tracking
   (window as any).fbq?.('track', 'Lead');
 
-  // Server-side conversion API
+  // Server-side conversion API with email hash
   try {
     const { fbp, fbc } = getFacebookParams();
+    const externalId = getExternalId();
+    
+    // Hash email if provided
+    let hashedEmail: string | undefined;
+    if (leadData?.email) {
+      hashedEmail = await sha256(leadData.email);
+      console.log('Email hashed for Lead event');
+    }
 
     await supabase.functions.invoke('facebook-conversion', {
       body: {
-        eventName: 'EndLead',
+        eventName: 'Lead',
         eventSourceUrl: window.location.href,
         userData: {
           client_user_agent: navigator.userAgent,
           fbp,
           fbc,
+          external_id: externalId,
+          em: hashedEmail, // Hashed email
         },
-        customData: leadData,
+        customData: {
+          ...leadData,
+          email: undefined, // Remove plain email from custom data
+        },
       },
     });
+    
+    console.log('Lead tracked with email hash and external_id');
   } catch (error) {
     console.error('Error tracking Lead:', error);
   }

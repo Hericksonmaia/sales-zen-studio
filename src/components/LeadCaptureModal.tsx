@@ -20,6 +20,7 @@ const LeadCaptureModal = ({
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     name: "",
+    email: "",
     instagram: "",
     revenue: [] as string[],
     role: ""
@@ -29,10 +30,18 @@ const LeadCaptureModal = ({
   const roleOptions = ["Proprietário(a)", "Sócio(a)", "Gestor(a) Comercial", "Marketing", "Vendedor(a)/Consultor(a)", "Outro"];
   const handleStep1Submit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.instagram) {
+    if (!formData.name || !formData.email || !formData.instagram) {
       toast.error("Por favor, preencha todos os campos");
       return;
     }
+    
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error("Por favor, insira um email válido");
+      return;
+    }
+    
     setStep(2);
   };
   const handleStep2Submit = async (e: React.FormEvent) => {
@@ -45,6 +54,7 @@ const LeadCaptureModal = ({
     // Track Facebook conversion
     await trackLead({
       name: formData.name,
+      email: formData.email,
       instagram: formData.instagram,
       revenue: formData.revenue,
       role: formData.role
@@ -74,6 +84,14 @@ const LeadCaptureModal = ({
               <Input id="name" placeholder="Seu nome" value={formData.name} onChange={e => setFormData({
             ...formData,
             name: e.target.value
+          })} required />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" type="email" placeholder="seu@email.com" value={formData.email} onChange={e => setFormData({
+            ...formData,
+            email: e.target.value
           })} required />
             </div>
 
