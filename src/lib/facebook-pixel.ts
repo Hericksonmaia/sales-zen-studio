@@ -51,14 +51,38 @@ export const initFacebookPixel = () => {
 
   // Initialize pixel
   (window as any).fbq('init', PIXEL_ID);
+  
+  console.log('Facebook Pixel initialized:', PIXEL_ID);
 };
 
-// Track PageView
+// Track PageView with enriched data
 export const trackPageView = async () => {
   if (typeof window === 'undefined') return;
 
-  // Client-side pixel tracking
-  (window as any).fbq?.('track', 'PageView');
+  // Collect enriched parameters
+  const enrichedData = {
+    page_url: window.location.href,
+    page_title: document.title,
+    referrer: document.referrer || null,
+    language: navigator.language || (navigator as any).userLanguage,
+    screen_width: window.screen.width,
+    screen_height: window.screen.height,
+    viewport_width: window.innerWidth,
+    viewport_height: window.innerHeight,
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    user_agent: navigator.userAgent,
+    platform: navigator.platform,
+    cookies_enabled: navigator.cookieEnabled,
+    color_depth: window.screen.colorDepth,
+    device_memory: (navigator as any).deviceMemory || 'unknown',
+    hardware_concurrency: navigator.hardwareConcurrency || 'unknown',
+    connection_type: (navigator as any).connection ? (navigator as any).connection.effectiveType : 'unknown',
+    random_id: Math.random().toString(36).substring(2, 10)
+  };
+
+  // Client-side pixel tracking with enriched data
+  (window as any).fbq?.('track', 'PageView', enrichedData);
+  console.log('PageView tracked with enriched data:', enrichedData);
 
   // Server-side conversion API
   try {
@@ -73,6 +97,7 @@ export const trackPageView = async () => {
           fbp,
           fbc,
         },
+        customData: enrichedData,
       },
     });
   } catch (error) {
