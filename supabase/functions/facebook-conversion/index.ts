@@ -9,8 +9,7 @@ interface ConversionEvent {
   eventName: string;
   eventSourceUrl: string;
   userData: {
-    clientIpAddress?: string;
-    clientUserAgent?: string;
+    client_user_agent?: string;
     fbp?: string;
     fbc?: string;
   };
@@ -33,7 +32,23 @@ serve(async (req) => {
 
     const { eventName, eventSourceUrl, userData, customData }: ConversionEvent = await req.json();
 
-    console.log('Processing Facebook conversion:', { eventName, eventSourceUrl });
+    // Extract client IP from headers
+    const clientIp = req.headers.get('x-forwarded-for')?.split(',')[0].trim() || 
+                     req.headers.get('x-real-ip') || 
+                     'unknown';
+
+    console.log('Processing Facebook conversion:', { 
+      eventName, 
+      eventSourceUrl,
+      clientIp,
+      userData 
+    });
+
+    // Prepare user data with client IP
+    const enrichedUserData = {
+      ...userData,
+      client_ip_address: clientIp !== 'unknown' ? clientIp : undefined,
+    };
 
     // Prepare the event data
     const eventData = {
@@ -42,7 +57,7 @@ serve(async (req) => {
           event_name: eventName,
           event_time: Math.floor(Date.now() / 1000),
           event_source_url: eventSourceUrl,
-          user_data: userData,
+          user_data: enrichedUserData,
           custom_data: customData || {},
           action_source: 'website',
         },

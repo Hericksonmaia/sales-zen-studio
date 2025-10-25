@@ -69,8 +69,7 @@ export const trackPageView = async () => {
         eventName: 'PageView',
         eventSourceUrl: window.location.href,
         userData: {
-          clientIpAddress: undefined, // Will be captured server-side if needed
-          clientUserAgent: navigator.userAgent,
+          client_user_agent: navigator.userAgent,
           fbp,
           fbc,
         },
@@ -97,7 +96,7 @@ export const trackLead = async (leadData?: Record<string, any>) => {
         eventName: 'EndLead',
         eventSourceUrl: window.location.href,
         userData: {
-          clientUserAgent: navigator.userAgent,
+          client_user_agent: navigator.userAgent,
           fbp,
           fbc,
         },
