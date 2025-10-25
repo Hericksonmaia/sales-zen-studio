@@ -137,7 +137,7 @@ const LeadCaptureModal = ({
               </p>
             </div>
 
-            <Button type="submit" className="w-full bg-primary hover:bg-primary-hover font-bold">Quero minha sessão de diagnóstico</Button>
+            <Button type="submit" className="w-full bg-primary hover:bg-primary-hover font-bold">Quero minha sessão estratégica</Button>
           </form>}
       </DialogContent>
     </Dialog>;
