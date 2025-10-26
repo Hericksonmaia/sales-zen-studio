@@ -5,6 +5,7 @@ import Mechanism from "@/components/Mechanism";
 import Benefits from "@/components/Benefits";
 import Process from "@/components/Process";
 import Guarantee from "@/components/Guarantee";
+import FloatingCTA from "@/components/FloatingCTA";
 import LeadCaptureModal from "@/components/LeadCaptureModal";
 import { initFacebookPixel, trackPageView } from "@/lib/facebook-pixel";
 
@@ -41,6 +42,7 @@ const Index = () => {
         <Process />
         <Guarantee onOpenModal={() => setModalOpen(true)} />
       </main>
+      <FloatingCTA onOpenModal={() => setModalOpen(true)} />
       <LeadCaptureModal open={modalOpen} onOpenChange={setModalOpen} />
     </div>
   );
