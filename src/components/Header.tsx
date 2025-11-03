@@ -18,7 +18,7 @@ const Header = ({ onOpenModal }: HeaderProps) => {
         <Button 
           onClick={onOpenModal}
           size="default"
-          className="bg-primary hover:bg-primary-hover text-primary-foreground font-semibold shadow-lg transition-all duration-300 text-sm sm:text-base px-3 sm:px-4 h-9 sm:h-10"
+          className="bg-primary hover:bg-primary-hover text-primary-foreground font-semibold shadow-lg transition-all duration-300 text-sm sm:text-base px-3 sm:px-4 h-9 sm:h-10 rounded-lg"
         >
           Agendar Diagnóstico
         </Button>

@@ -45,7 +45,7 @@ const FloatingCTA = ({ onOpenModal }: FloatingCTAProps) => {
             <Button 
               onClick={onOpenModal}
               size="lg"
-              className="bg-primary hover:bg-primary-hover text-primary-foreground font-bold text-sm sm:text-base md:text-lg px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 h-auto shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full sm:w-auto min-h-[48px]"
+              className="bg-primary hover:bg-primary-hover text-primary-foreground font-bold text-sm sm:text-base md:text-lg px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 h-auto shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full sm:w-auto min-h-[48px] rounded-xl"
             >
               <Calendar className="w-4 h-4 mr-2" />
               <span className="hidden xs:inline">Agendar Sessão Estratégica</span>
