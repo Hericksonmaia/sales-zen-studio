@@ -52,38 +52,41 @@ const ThankYou = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-secondary to-background flex items-center justify-center px-4 py-12">
       <div className="max-w-3xl w-full">
-        <div className="bg-card rounded-2xl shadow-2xl p-8 md:p-12 text-center animate-scale-in">
+        <div className="bg-card rounded-2xl shadow-2xl p-6 sm:p-8 md:p-12 text-center animate-scale-in">
           {/* Success Icon */}
-          <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Calendar className="w-10 h-10 text-primary" />
+          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+            <Calendar className="w-8 h-8 sm:w-10 sm:h-10 text-primary" />
           </div>
 
           {/* Title */}
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
             🎯 Último passo: escolha seu horário agora
           </h1>
 
-          <p className="text-lg text-muted-foreground mb-8">
+          <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8">
             Seu cadastro foi realizado com sucesso! Agora vamos agendar sua reunião estratégica.
           </p>
 
           {/* Cal.com Calendar Embed */}
           <div 
-            className="bg-secondary rounded-xl mb-8 overflow-hidden border border-border"
-            style={{ height: "600px" }}
+            className="bg-secondary rounded-xl mb-6 sm:mb-8 overflow-hidden border border-border"
           >
-            <div style={{ width: "100%", height: "100%", overflow: "scroll" }} id="my-cal-inline"></div>
+            <div 
+              style={{ width: "100%", height: "100%", overflow: "scroll" }} 
+              id="my-cal-inline"
+              className="h-[500px] sm:h-[600px]"
+            ></div>
           </div>
 
           {/* WhatsApp CTA */}
           <div className="space-y-4">
-            <p className="text-sm text-muted-foreground">
+            <p className="text-xs sm:text-sm text-muted-foreground">
               Prefere agendar pelo WhatsApp?
             </p>
             <Button 
               asChild
               size="lg"
-              className="bg-[#25D366] hover:bg-[#20BA5A] text-white font-bold w-full sm:w-auto"
+              className="bg-[#25D366] hover:bg-[#20BA5A] text-white font-bold w-full sm:w-auto min-h-[48px] px-6 sm:px-8 py-3 sm:py-4"
             >
               <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
                 <MessageCircle className="w-5 h-5 mr-2" />
@@ -93,8 +96,8 @@ const ThankYou = () => {
           </div>
 
           {/* Confirmation Message */}
-          <div className="mt-8 p-4 bg-primary/5 rounded-lg border border-primary/20">
-            <p className="text-sm text-foreground">
+          <div className="mt-6 sm:mt-8 p-3 sm:p-4 bg-primary/5 rounded-lg border border-primary/20">
+            <p className="text-xs sm:text-sm text-foreground">
               📱 Enviamos o <span className="font-bold">Roteiro Pré-Reunião</span> no seu WhatsApp
             </p>
           </div>

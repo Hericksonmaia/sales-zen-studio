@@ -31,10 +31,10 @@ const FloatingCTA = ({ onOpenModal }: FloatingCTAProps) => {
       }`}
     >
       <div className="bg-background/95 backdrop-blur-md border-t border-border shadow-2xl">
-        <div className="container mx-auto px-4 py-3 md:py-4">
+        <div className="container mx-auto px-3 sm:px-4 py-2.5 sm:py-3 md:py-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="text-center sm:text-left">
-              <p className="text-sm md:text-base font-semibold text-foreground">
+              <p className="text-xs sm:text-sm md:text-base font-semibold text-foreground">
                 Pronto para aumentar suas vendas?
               </p>
               <p className="text-xs text-muted-foreground hidden sm:block">
@@ -45,10 +45,11 @@ const FloatingCTA = ({ onOpenModal }: FloatingCTAProps) => {
             <Button 
               onClick={onOpenModal}
               size="lg"
-              className="bg-primary hover:bg-primary-hover text-primary-foreground font-bold text-base md:text-lg px-6 md:px-8 py-5 md:py-6 h-auto shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full sm:w-auto"
+              className="bg-primary hover:bg-primary-hover text-primary-foreground font-bold text-sm sm:text-base md:text-lg px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 h-auto shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full sm:w-auto min-h-[48px]"
             >
-              <Calendar className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-              Agendar Sessão Estratégica
+              <Calendar className="w-4 h-4 mr-2" />
+              <span className="hidden xs:inline">Agendar Sessão Estratégica</span>
+              <span className="xs:hidden">Agendar Agora</span>
             </Button>
           </div>
         </div>
